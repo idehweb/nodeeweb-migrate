@@ -6,10 +6,11 @@ export function extractArgs(arg, mapper = (opt) => opt) {
   while (match) {
     const [opt, value] = match[0].split(" ");
     const key = mapper(opt);
-
-    if (result[key]) {
-      result[key].push(value);
-    } else result[key] = [value];
+    if (key) {
+      if (result[key]) {
+        result[key].push(value);
+      } else result[key] = [value];
+    }
 
     match = pattern.exec(arg);
   }
