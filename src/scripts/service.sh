@@ -2,6 +2,13 @@
 
 # $1 = service name
 # $2 = new image
+# set env:
+# MONGO_URL=
+# DB_NAME=
+# AUTH_SECRET=
+# APP_NAME=
+# BASE_URL=
+# PORT=
 # example: ./service.sh nwi-nodeeweb nodeeweb-shop:semi-1.0.1
 
 set -e
@@ -15,14 +22,16 @@ echo "we need service name arg"
 exit 1
 fi;
 
-envs=(`docker service inspect --pretty nodeeweb_nodeeweb-server | grep "Env"`)
 
-MONGO_URL="mongodb://mongomaster:27017"
-DB_NAME="Nodeeweb"
-AUTH_SECRET=`openssl rand -hex 24`
-APP_NAME="Nodeeweb"
-BASE_URL="https://$1.com"
-PORT="3000"
+MONGO_URL=${MONGO_URL:-"mongodb://mongomaster:27017"}
+DB_NAME=${DB_NAME:-"Nodeeweb"}
+AUTH_SECRET=${AUTH_SECRET:-`openssl rand -hex 24`}
+APP_NAME=${APP_NAME:-"Nodeeweb"}
+BASE_URL=${BASE_URL:-"https://$1.com"}
+PORT=${PORT:-"3000"}
+
+envs=(`docker service inspect --pretty $1 | grep "Env"`)
+
 
 for env in ${envs[@]}
 do

@@ -16,6 +16,8 @@ cli
   .option("-d, --db <db>", "identify db")
   .option("-s, --service <service>", "docker service")
   .option("--image <image>", "new docker image")
+  .option("--domain <domain>", "docker service primary domain")
+  .option("--name <name>", "docker service name")
   .option("--path <path>", "service absolute path");
 
 cli.parse(process.argv);

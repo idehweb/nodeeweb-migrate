@@ -14,6 +14,8 @@ async function main() {
     path,
     image,
     db: dbName,
+    name: appName,
+    domain,
     modelsAll,
   } = cli.opts();
 
@@ -24,7 +26,17 @@ async function main() {
         await script(logger, "dirs", path);
         break;
       case "docker-service":
-        await script(logger, "service", service, image);
+        await script(
+          logger,
+          {
+            DB_NAME: dbName,
+            APP_NAME: appName,
+            BASE_URL: domain,
+          },
+          "service",
+          service,
+          image
+        );
         break;
       case "db":
         const db = new DB(logger);
