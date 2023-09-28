@@ -34,6 +34,8 @@ export default function dbOrder() {
                   ? doc.orderNumber + ""
                   : doc.order_id;
               order._id += Math.ceil(Math.random() * 1000);
+              order._id += Math.ceil(Math.random() * 1000);
+              order._id += Math.ceil(Math.random() * 1000);
 
               // customer
               if (doc.customer_data) {
