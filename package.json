@@ -5,6 +5,7 @@
   "author": "Erfan <erfanmahvash12345@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "mongoose": "^7.5.3"
   }
 }
