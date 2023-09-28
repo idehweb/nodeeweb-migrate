@@ -1,8 +1,7 @@
+import "./src/utils/env.js";
 import cli from "./src/cli/index.js";
 import { DB } from "./src/db/index.js";
 import script from "./src/scripts/index.js";
-import "./src/utils/env.js";
-import { extractArgs } from "./src/utils/index.js";
 
 const logger = console.log;
 
