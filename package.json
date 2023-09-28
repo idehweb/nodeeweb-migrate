@@ -5,6 +5,9 @@
   "author": "Erfan <erfanmahvash12345@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "start": "node index"
+  },
   "dependencies": {
     "chalk": "^5.3.0",
     "dotenv": "^16.3.1",

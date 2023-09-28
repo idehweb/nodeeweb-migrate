@@ -1,19 +1,20 @@
 import mongoose, { Schema } from "mongoose";
 import { getEnv } from "../utils/env.js";
 import { getPath } from "../utils/path.js";
+import chalk from "chalk";
 
 export class DB {
   constructor(logger = console.log) {
-    this.logger = (...args) => logger("[db]", ...args);
+    this.logger = (...args) => logger(chalk.bgGray("[db]"), ...args);
   }
   async connect() {
     const db = await mongoose.connect(getEnv("mongo_url"));
     this.db = db;
-    this.logger("db connect");
+    this.logger(chalk.green("db connect"));
   }
   async disconnect() {
     await this.db.disconnect();
-    this.logger("db disconnect");
+    this.logger(chalk.red("db disconnect"));
   }
 
   async migrate(modelName) {
@@ -23,16 +24,16 @@ export class DB {
 
     // backup
     model.aggregate([{ $out: `${collection}-bk` }]);
-    this.logger("backup", collection);
+    this.logger(chalk.gray("backup", collection));
 
     // query
     try {
       const { default: plCreator } = require(getPath("db", `${modelName}.js`));
       const pl = plCreator();
       await model.aggregate(pl, { allowDiskUse: true });
-      this.logger("resolve", modelName, "successfully");
+      this.logger(chalk.green("resolve", modelName, "successfully"));
     } catch (err) {
-      this.logger("resolve", modelName, "error", err);
+      this.logger(chalk.red("resolve", modelName, "error", err));
     }
   }
 }
