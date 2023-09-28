@@ -3,11 +3,13 @@ export default function dbOrder() {
     {
       $lookup: {
         from: "transactions",
-        localField: "_id",
-        foreignField: "order",
+        let: { id: "$_id" },
         pipeline: [
           {
             $match: {
+              $expr: {
+                order: "$$id",
+              },
               Authority: {
                 $exists: true,
               },

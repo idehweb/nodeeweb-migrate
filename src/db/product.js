@@ -45,10 +45,16 @@ export default function dbProduct() {
     {
       $lookup: {
         from: "files",
-        localField: "photos",
-        foreignField: "url",
+        let: { id: "$photos" },
         as: "photos",
         pipeline: [
+          {
+            $match: {
+              $expr: {
+                url: { $in: "$$id" },
+              },
+            },
+          },
           {
             $project: {
               url: 1,
@@ -155,7 +161,7 @@ export default function dbProduct() {
                 };
               }
               const finalResult = Object.assign({}, out, extraOut);
-              return JSON.parse(JSON.stringify(finalResult));
+              return finalResult;
             }.toString(),
           },
         },

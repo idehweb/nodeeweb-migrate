@@ -17,7 +17,7 @@ export default function dbNotification() {
               notif.createdAt = doc.createdAt;
               notif.updatedAt = doc.updatedAt;
 
-              return JSON.parse(JSON.stringify(notif));
+              return notif;
             }.toString(),
           },
         },

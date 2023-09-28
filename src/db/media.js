@@ -12,7 +12,7 @@ export default function dbMedia() {
               doc.url = url;
               doc.type = type;
 
-              return JSON.parse(JSON.stringify(doc));
+              return doc;
             }.toString(),
           },
         },

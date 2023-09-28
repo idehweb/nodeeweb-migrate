@@ -24,7 +24,7 @@ export default function dbDiscount() {
               discount.createdAt = new Date();
               discount.updatedAt = new Date();
 
-              return JSON.parse(JSON.stringify(discount));
+              return discount;
             }.toString(),
           },
         },
