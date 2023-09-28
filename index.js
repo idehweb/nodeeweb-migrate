@@ -7,7 +7,7 @@ const logger = console.log;
 
 async function main() {
   const { steps, models, service, path, image, dbName, allModels } =
-    extractArgs(process.argv.join(" "), (opt) => {
+    extractArgs(process.argv.slice(2).join(" "), (opt) => {
       switch (opt) {
         case "-s":
         case "--service":
