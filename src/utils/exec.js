@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { spawn } from "child_process";
 
 export default function exec(cmd, { logger = console.log } = {}) {
-  logger.log(chalk.yellow(cmd));
+  logger(chalk.yellow(cmd));
   const sp = spawn(cmd, {
     shell: true,
     stdio: [process.stdin, process.stdout, process.stderr],
