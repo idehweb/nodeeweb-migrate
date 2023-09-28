@@ -7,8 +7,8 @@ export class DB {
   constructor(logger = console.log) {
     this.logger = (...args) => logger(chalk.bgGray("[db]"), ...args);
   }
-  async connect() {
-    const db = await mongoose.connect(getEnv("mongo_url"));
+  async connect(dbName) {
+    const db = await mongoose.connect(getEnv("mongo_url"), { dbName });
     this.db = db;
     this.logger(chalk.green("db connect"));
   }
