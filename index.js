@@ -15,6 +15,7 @@ async function main() {
     image,
     db: dbName,
     name: appName,
+    mongo_url,
     domain,
     modelsAll,
   } = cli.opts();
@@ -23,7 +24,7 @@ async function main() {
     logger("start step", step);
     switch (step) {
       case "dirs":
-        await script(logger, "dirs", path);
+        await script(logger, {}, "dirs", path);
         break;
       case "docker-service":
         await script(
@@ -32,6 +33,7 @@ async function main() {
             DB_NAME: dbName,
             APP_NAME: appName,
             BASE_URL: domain,
+            MONGO_URL: mongo_url,
           },
           "service",
           service,

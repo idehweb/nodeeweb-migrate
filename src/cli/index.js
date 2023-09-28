@@ -18,6 +18,7 @@ cli
   .option("--image <image>", "new docker image")
   .option("--domain <domain>", "docker service primary domain")
   .option("--name <name>", "docker service name")
+  .option("--mongo_url <mongo_url>", "docker service mongo url connection")
   .option("--path <path>", "service absolute path");
 
 cli.parse(process.argv);

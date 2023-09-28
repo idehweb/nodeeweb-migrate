@@ -6,10 +6,8 @@ import { getEnv } from "../utils/env.js";
 export default function script(logger, envs, cmd, ...args) {
   const env = {
     MONGO_URL: getEnv("mongo_url"),
-    DB_NAME: envs.DB_NAME,
-    APP_NAME: envs.APP_NAME,
-    BASE_URL: envs.BASE_URL,
     PORT: "3000",
+    ...envs,
   };
   return exec(`${getPath("src", "scripts", `${cmd}.sh`)} ${args.join(" ")}`, {
     logger: (...args) => logger(chalk.bgGray("[script]"), ...args),
