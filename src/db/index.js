@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import { getEnv } from "../utils/env";
-import { getPath } from "../utils/path";
+import { getEnv } from "../utils/env.js";
+import { getPath } from "../utils/path.js";
 
 export class DB {
   constructor(logger = console.log) {
