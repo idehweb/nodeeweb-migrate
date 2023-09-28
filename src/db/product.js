@@ -50,9 +50,7 @@ export default function dbProduct() {
         pipeline: [
           {
             $match: {
-              $expr: {
-                url: { $in: "$$id" },
-              },
+              $expr: { $in: ["$url", "$$id"] },
             },
           },
           {
