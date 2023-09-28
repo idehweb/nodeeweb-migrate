@@ -6,9 +6,8 @@ import { extractArgs } from "./src/utils/index.js";
 const logger = console.log;
 
 async function main() {
-  const { steps, models, service, path, image, dbName } = extractArgs(
-    process.argv.join(" "),
-    (opt) => {
+  const { steps, models, service, path, image, dbName, allModels } =
+    extractArgs(process.argv.join(" "), (opt) => {
       switch (opt) {
         case "-s":
         case "--service":
@@ -30,11 +29,14 @@ async function main() {
         case "-d":
         case "--db":
           return "dbName";
+
+        case "--models-all":
+          return "allModels";
+
         default:
           return null;
       }
-    }
-  );
+    });
 
   for (const step of steps) {
     logger("start step", step);
@@ -48,11 +50,11 @@ async function main() {
       case "db":
         const db = new DB(logger);
         await db.connect(dbName?.[0]);
-        for (const modelName of models) await db.migrate(modelName);
+        if (allModels) await db.migrateAll();
+        else for (const modelName of models) await db.migrate(modelName);
+        await db.disconnect();
         break;
     }
   }
-
-  await db.disconnect();
 }
 main();
