@@ -1,5 +1,7 @@
 const pattern = /-\S+ \S+/g;
 
+function parser(str) {}
+
 export function extractArgs(arg, mapper = (opt) => opt) {
   let match = pattern.exec(arg);
   const result = {};
