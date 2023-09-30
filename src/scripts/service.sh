@@ -54,5 +54,6 @@ plugins_path="$service_path/plugins"
 mkdir -p $logs_path
 mkdir -p $plugins_path
 
+docker image pull $new_image
 
 docker service update --image $new_image --env-add MONGO_URL=$MONGO_URL --env-add DB_NAME=$DB_NAME --env-add APP_NAME=$APP_NAME --env-add BASE_URL=$BASE_URL --env-add AUTH_SECRET=$AUTH_SECRET --mount-rm "/app/plugins/" --mount-rm "/app/public_media/" --mount-rm "/app/theme/" --mount-add "type=bind,source=$logs_path,destination=/app/logs/" --mount-add "type=bind,source=$plugins_path,destination=/app/plugins/" --restart-condition any  $1 
