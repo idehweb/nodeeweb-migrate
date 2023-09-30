@@ -2,6 +2,7 @@
 
 # $1 = service name
 # $2 = new image
+# $3 = service path
 # set env:
 # MONGO_URL=
 # DB_NAME=
@@ -44,5 +45,14 @@ do
 done
 
 new_image=${2:-"idehweb/nodeeweb-shop:semi-1.0.1"}
+service_path=${3:-"/var/instances/$1"}
 
-docker service update --image $new_image --env-add MONGO_URL=$MONGO_URL --env-add DB_NAME=$DB_NAME --env-add APP_NAME=$APP_NAME --env-add BASE_URL=$BASE_URL --env-add AUTH_SECRET=$AUTH_SECRET $1 
+logs_path="$service_path/logs"
+plugins_path="$service_path/plugins"
+
+# create mount path
+mkdir -p $logs_path
+mkdir -p $plugins_path
+
+
+docker service update --image $new_image --env-add MONGO_URL=$MONGO_URL --env-add DB_NAME=$DB_NAME --env-add APP_NAME=$APP_NAME --env-add BASE_URL=$BASE_URL --env-add AUTH_SECRET=$AUTH_SECRET --mount-rm "/app/plugins/" --mount-rm "/app/public_media/" --mount-rm "/app/theme/" --mount-add "type=bind,source=$logs_path,destination=/app/logs/" --mount-add "type=bind,source=$plugins_path,destination=/app/plugins/"  $1 

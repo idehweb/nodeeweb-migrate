@@ -36,7 +36,8 @@ async function main() {
           },
           "service",
           service,
-          image
+          image,
+          path
         );
         break;
       case "db":
