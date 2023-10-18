@@ -137,7 +137,7 @@ export default function dbProduct() {
                 extraOut = {
                   price_type: PriceType.Variable,
                   combinations: product.combinations.map((comb) => ({
-                    _id: comb.id,
+                    _id: comb.id + "",
                     in_stock: comb.in_stock || true,
                     price: toNumber(comb.price + ""),
                     quantity: toNumber(comb.quantity + ""),
